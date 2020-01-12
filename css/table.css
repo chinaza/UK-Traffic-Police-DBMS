@@ -1,0 +1,39 @@
+/* 
+Generic Styling, for Desktops/Laptops 
+*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tbl-container {
+  overflow-x: auto;
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto;
+  background-color: white;
+}
+
+/* Zebra striping */
+tr:nth-of-type(odd) {
+  background: #eee;
+}
+th {
+  background: #333;
+  color: white;
+  font-weight: bold;
+}
+td,
+th {
+  padding: 6px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+body {
+  background: #ebedee;
+}
+
+.form-search {
+  margin-top: 30px;
+}
