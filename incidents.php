@@ -79,8 +79,8 @@ $incidents = $incidents ? $incidents : [];
                                 <td><a href="drivers.php?q=<?=$incident['owner_licence']?>"><?php echo $incident['owner_licence']; ?></a></td>
                                 <td><a href="incidents.php?q=<?=$incident['vehicle_licence']?>"><?php echo $incident['vehicle_licence']; ?></a></td>
                                 <td><?php echo $incident['incident_report']; ?></td>
-                                <td><?php echo $incident['fine_amount'] ?? "N/A"; ?></td>
-                                <td><?php echo $incident['fine_points'] ?? "N/A"; ?></td>
+                                <td><?php echo $incident['fine_amount'] ? $incident['fine_amount'] : "N/A"; ?></td>
+                                <td><?php echo $incident['fine_points'] ? $incident['fine_points'] : "N/A"; ?></td>
                                 <td><a href="edit_incident.php?id=<?=$incident['incident_ID']?>">Edit</a></td>
                                 <td>
                                     <a href="delete.php?return=incidents.php&id=<?=$incident['incident_ID']?>"

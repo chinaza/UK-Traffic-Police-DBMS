@@ -28,7 +28,7 @@ if (isset($_POST["username"])) {
     $username = $_POST['username'];
     $role = $_POST['role'];
     $password = $_POST['password'];
-    $id = $_POST['id'] ?? '';
+    $id = isset($_POST['id'])?$_POST['id']: '';
 
     $query;
     if ($id == '') {

@@ -33,7 +33,7 @@ if (isset($_POST["name"])) {
     $name = $_POST['name'];
     $address = $_POST['address'];
     $licence = $_POST['licence'];
-    $id = $_POST['id'] ?? '';
+    $id = isset($_POST['id']) ? $_POST['id'] : '';
 
     if ($id == '') {
         //Run create query if in creation mode

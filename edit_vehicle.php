@@ -7,7 +7,7 @@ if ($_SESSION['isLoggedIn'] === "false") {
 }
 
 // Retrieve people
-$personQ = "SELECT * FROM people";
+$personQ = "SELECT * FROM People";
 $people = $db->query($personQ);
 
 $id = "";
@@ -26,7 +26,8 @@ if (isset($_GET['id'])) {
 
     // Retrieve owner
     $ownerQ = "SELECT * FROM Ownership WHERE vehicle_ID = $id";
-    $people_ID = $db->query($ownerQ, true)['people_ID'] ?? '';
+    $queryRes = $db->query($ownerQ, true);
+    $people_ID = $queryRes ? $queryRes['people_ID'] : '';
 
     $type = $vehicle['vehicle_type'];
     $colour = $vehicle['vehicle_colour'];
@@ -44,10 +45,14 @@ if (isset($_POST["type"])) {
     $colour = $_POST['colour'];
     $people_ID = $_POST['people_ID'];
     $licence = $_POST['licence'];
-    $id = $_POST['id'] ?? '';
+    $id = isset($_POST['id']) ? $_POST['id'] : '';
 
+    $ownerUpdateQ;
+    $veh = $db->query("SELECT vehicle_ID FROM Vehicle WHERE vehicle_licence='$licence'", true);
+    $vehicle_ID = $veh['vehicle_ID'];
     if ($id == '') {
         //Run create query if in creation mode
+        $ownerUpdateQ = "INSERT INTO Ownership VALUES($people_ID, $vehicle_ID)";
         $query = "INSERT INTO Vehicle (vehicle_type, vehicle_colour, vehicle_licence) VALUES ('$type','$colour','$licence')";
         $vehicle = $db->query($query, true);
         if ($vehicle) {
@@ -65,6 +70,7 @@ if (isset($_POST["type"])) {
         }
     } else {
         //Run edit query if in edit mode
+        $ownerUpdateQ = "UPDATE Ownership SET people_ID = $people_ID WHERE vehicle_ID=$vehicle_ID";
         $query = "UPDATE Vehicle
         SET vehicle_type = '$type', vehicle_colour = '$colour', vehicle_licence = '$licence'
         WHERE vehicle_ID = $id";
@@ -78,14 +84,10 @@ if (isset($_POST["type"])) {
 
     // Update ownership if driver specified
     if ($people_ID != '') {
-        $veh = $db->query("SELECT vehicle_ID FROM Vehicle WHERE vehicle_licence='$licence'", true);
-        if ($veh) {
-            $vehicle_ID = $veh['vehicle_ID'];
-            $res = $db->query("INSERT INTO Ownership VALUES($people_ID, $vehicle_ID)");
+        $res = $db->query($ownerUpdateQ);
 
-            if (!$res) {
-                $status = array("msg" => "An error occured updating data", "state" => $vehicle);
-            }
+        if (!$res) {
+            $status = array("msg" => "An error occured updating data", "state" => $vehicle);
         }
     }
 }

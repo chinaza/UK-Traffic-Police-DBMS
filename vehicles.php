@@ -70,8 +70,8 @@ $vehicles = $vehicles ? $vehicles : [];
                         <tbody>
                             <?php foreach ($vehicles as $vehicle): ?>
                             <tr>
-                                <td><?php echo $vehicle['owner'] ?? "N/A"; ?></td>
-                                <td><?php echo $vehicle['owner_licence'] ?? "N/A"; ?></td>
+                                <td><?php echo $vehicle['owner'] ? $vehicle['owner'] : "N/A"; ?></td>
+                                <td><?php echo $vehicle['owner_licence'] ? $vehicle['owner_licence'] : "N/A"; ?></td>
                                 <td><?php echo $vehicle['vehicle_type']; ?></td>
                                 <td><?php echo $vehicle['vehicle_colour']; ?></td>
                                 <td><?php echo $vehicle['vehicle_licence']; ?></td>

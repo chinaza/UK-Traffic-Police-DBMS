@@ -12,7 +12,7 @@ if (isset($_POST['id'])) {
     $fine_amount = $_POST['fine_amount'];
     $fine_points = $_POST['fine_points'];
 
-    $finesQ = "INSERT INTO FINES(fine_amount, fine_points, incident_ID) VALUES($fine_amount, $fine_points, $id)";
+    $finesQ = "INSERT INTO Fines(fine_amount, fine_points, incident_ID) VALUES($fine_amount, $fine_points, $id)";
     $db->query($finesQ);
 }
 

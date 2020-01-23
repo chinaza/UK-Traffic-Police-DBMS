@@ -7,7 +7,7 @@ if ($_SESSION['isLoggedIn'] === "false") {
 }
 
 // Retrieve people
-$personQ = "SELECT * FROM people";
+$personQ = "SELECT * FROM People";
 $people = $db->query($personQ);
 
 // Retrieve all vehicles
@@ -45,7 +45,7 @@ if (isset($_POST['people_ID'])) {
     $incident_date = $_POST['incident_date'];
     $incident_report = $_POST['incident_report'];
     $offence_ID = $_POST['offence_ID'];
-    $id = $_POST['id'] ?? '';
+    $id = isset($_POST['id']) ? $_POST['id'] : '';
 
     $insertQ;
     // store data in db
@@ -95,7 +95,7 @@ if (isset($_POST['people_ID'])) {
         <div class="p-30 text-center">
             <img src="img/report.svg" class="dash-img" alt="icon" />
             <h2 class="m-0">Manage Incidents</h2>
-            <?php if (isset($id)): ?>
+            <?php if ($id != ""): ?>
             <h4 class="danger">Editing Incident...</h4>
             <?php endif?>
         </div>

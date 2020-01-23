@@ -56,7 +56,7 @@ class Database
 
         // Return empty array for empty row set
         if ($result->num_rows < 1) {
-            return $limit ? false : [];
+            return [];
         }
 
         // Store result in array
